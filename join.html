@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Match Point — Rejoindre</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0A0A0A; color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+    .header {
+      background: #111; padding: 16px 20px;
+      border-bottom: 1px solid #1a1a1a;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .header-title { font-size: 18px; font-weight: 800; color: #00E676; }
+    .header-sub { font-size: 12px; color: #555; margin-top: 3px; }
+    .container { padding: 16px; max-width: 480px; margin: 0 auto; }
+    .card {
+      background: #141414; border-radius: 14px;
+      border: 1px solid #222; padding: 18px; margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 14px; font-weight: 700; color: #00E676;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .btn {
+      width: 100%; padding: 15px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 8px; margin-bottom: 10px;
+    }
+    .btn-primary { background: #00E676; color: #000; }
+    .btn-outline { background: transparent; color: #00E676; border: 1.5px solid #00E676; }
+    .btn-red { background: #c62828; color: #fff; }
+    .btn:active { opacity: 0.75; }
+    .player-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 12px; border-radius: 20px;
+      border: 1.5px solid rgba(0,230,118,0.5);
+      background: rgba(0,230,118,0.08);
+      margin: 4px; cursor: pointer; font-size: 13px;
+    }
+    .player-chip.locked {
+      border-color: #2a2a2a; background: #161616;
+      color: #333; cursor: not-allowed;
+    }
+    .avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(0,230,118,0.2); color: #00E676;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .avatar.locked { background: #1a1a1a; color: #333; }
+    input[type=text] {
+      width: 100%; padding: 13px 14px;
+      background: #1a1a1a; border: 1.5px solid #2a2a2a;
+      border-radius: 10px; color: #fff; font-size: 15px;
+      outline: none; margin-bottom: 10px;
+    }
+    input[type=text]:focus { border-color: #00E676; }
+    .tab-bar {
+      display: flex; background: #111;
+      border-bottom: 1px solid #1a1a1a;
+      position: sticky; top: 52px; z-index: 9;
+    }
+    .tab {
+      flex: 1; padding: 13px 8px; text-align: center;
+      font-size: 12px; font-weight: 600; color: #444;
+      cursor: pointer; border-bottom: 2px solid transparent;
+    }
+    .tab.active { color: #00E676; border-bottom-color: #00E676; }
+    .hidden { display: none !important; }
+    .match-item {
+      background: #1a1a1a; border-radius: 12px;
+      border: 1px solid #2a2a2a; padding: 14px;
+      margin-bottom: 10px; cursor: pointer;
+    }
+    .match-item.active-match { border-color: rgba(0,230,118,0.3); }
+    .match-title { font-size: 14px; font-weight: 700; }
+    .match-sub { font-size: 11px; color: #555; margin-top: 3px; }
+    .match-score { font-size: 20px; font-weight: 900; color: #00E676; margin-top: 6px; }
+    .badge {
+      display: inline-block; padding: 2px 8px;
+      border-radius: 6px; font-size: 10px; font-weight: 700;
+    }
+    .badge-active { background: rgba(0,230,118,0.15); color: #00E676; }
+    .badge-done { background: rgba(255,255,255,0.05); color: #555; }
+    .score-area { padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+    .score-row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 10px; margin: 16px 0;
+    }
+    .team-block { flex: 1; text-align: center; }
+    .team-name { font-size: 11px; color: #666; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .score-val { font-size: 52px; font-weight: 900; color: #00E676; line-height: 1; }
+    .score-btn {
+      width: 100%; padding: 16px; border-radius: 10px;
+      font-size: 22px; font-weight: 900; border: none; cursor: pointer; margin-top: 8px;
+    }
+    .score-btn-home { background: rgba(0,230,118,0.12); color: #00E676; border: 1.5px solid rgba(0,230,118,0.3); }
+    .score-btn-away { background: rgba(255,255,255,0.04); color: #fff; border: 1.5px solid #2a2a2a; }
+    .vs { font-size: 16px; color: #333; font-weight: 700; flex-shrink: 0; }
+    .stat-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid #1a1a1a;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-name { font-size: 13px; color: #bbb; display: flex; align-items: center; gap: 8px; }
+    .stat-val { font-size: 14px; font-weight: 700; color: #00E676; }
+    .alert { padding: 12px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 10px; }
+    .alert-error { background: rgba(198,40,40,0.1); color: #ef5350; border: 1px solid rgba(198,40,40,0.2); }
+    .loading { text-align: center; padding: 30px; color: #333; font-size: 13px; }
+    .footer { text-align: center; padding: 16px; color: #222; font-size: 11px; }
+    .back-btn {
+      background: none; border: none; color: #00E676;
+      font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">🏓 Match Point</div>
+  <div class="header-sub" id="session-label">Chargement...</div>
+</div>
+
+<!-- ÉTAPE 1 : Choix entrée -->
+<div id="step-entry" class="container">
+  <div style="text-align:center; padding: 24px 0 16px;">
+    <div style="font-size:36px; margin-bottom:10px;">👋</div>
+    <div style="font-size:18px; font-weight:800; margin-bottom:6px;">Rejoindre la session</div>
+    <div style="font-size:13px; color:#444;">Score tes matchs en temps réel</div>
+  </div>
+  <button class="btn btn-primary" onclick="showStep('step-existing')">👥 Je suis dans la liste des joueurs</button>
+  <button class="btn btn-outline" onclick="showStep('step-new')">➕ Je suis un nouveau joueur</button>
+</div>
+
+<!-- ÉTAPE 2A : Joueur existant -->
+<div id="step-existing" class="container hidden">
+  <div class="card">
+    <div class="card-title">👥 Qui es-tu ?</div>
+    <div style="font-size:12px; color:#444; margin-bottom:12px;">Les noms 🔒 sont déjà pris.</div>
+    <div id="players-list"><div class="loading">Chargement...</div></div>
+  </div>
+  <button class="btn btn-outline" onclick="showStep('step-entry')">← Retour</button>
+</div>
+
+<!-- ÉTAPE 2B : Nouveau joueur -->
+<div id="step-new" class="container hidden">
+  <div class="card">
+    <div class="card-title">➕ Ton prénom</div>
+    <input type="text" id="new-name" placeholder="Entre ton prénom..." maxlength="30">
+    <div id="new-error" class="alert alert-error hidden"></div>
+    <button class="btn btn-primary" onclick="joinAsNew()">Rejoindre →</button>
+  </div>
+  <button class="btn btn-outline" onclick="showStep('step-entry')">← Retour</button>
+</div>
+
+<!-- ÉTAPE 3 : Session -->
+<div id="step-session" class="hidden">
+  <div class="tab-bar">
+    <div class="tab active" id="tab-btn-matches" onclick="switchTab('matches')">🏓 Matchs</div>
+    <div class="tab" id="tab-btn-create" onclick="switchTab('create')">➕ Créer</div>
+    <div class="tab" id="tab-btn-stats" onclick="switchTab('stats')">📊 Stats</div>
+  </div>
+
+  <!-- Matchs -->
+  <div id="tab-matches" class="container" style="padding-top:14px;">
+    <div style="font-size:12px; color:#444; margin-bottom:10px;">Appuie sur un match actif pour scorer</div>
+    <div id="matches-list"><div class="loading">Chargement...</div></div>
+  </div>
+
+  <!-- Créer -->
+  <div id="tab-create" class="container hidden" style="padding-top:14px;">
+    <div class="card">
+      <div class="card-title">🆕 Nouveau match</div>
+      <div style="font-size:12px;color:#555;margin-bottom:8px;">Équipe 1</div>
+      <input type="text" id="t1p1" placeholder="Joueur 1">
+      <input type="text" id="t1p2" placeholder="Joueur 2 (optionnel)">
+      <div style="font-size:12px;color:#555;margin-bottom:8px;margin-top:4px;">Équipe 2</div>
+      <input type="text" id="t2p1" placeholder="Joueur 3">
+      <input type="text" id="t2p2" placeholder="Joueur 4 (optionnel)">
+      <div style="font-size:12px;color:#555;margin-bottom:8px;margin-top:4px;">Court (optionnel)</div>
+      <input type="text" id="court" placeholder="1, 2, A...">
+      <div id="create-error" class="alert alert-error hidden"></div>
+      <button class="btn btn-primary" onclick="createMatch()" style="margin-top:4px;">▶ Démarrer le match</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div id="tab-stats" class="container hidden" style="padding-top:14px;">
+    <div class="card">
+      <div class="card-title">📊 Classement</div>
+      <div id="stats-list"><div class="loading">Chargement...</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORING -->
+<div id="step-scoring" class="hidden">
+  <div class="header" style="position:relative;">
+    <button class="back-btn" onclick="exitScoring()">← Retour aux matchs</button>
+    <div id="scoring-title" style="font-size:15px;font-weight:800;"></div>
+  </div>
+  <div class="score-area">
+    <div class="score-row">
+      <div class="team-block">
+        <div class="team-name" id="score-t1"></div>
+        <div class="score-val" id="score-home">0</div>
+        <button class="score-btn score-btn-home" onclick="addPoint('home')">+1</button>
+      </div>
+      <div class="vs">VS</div>
+      <div class="team-block">
+        <div class="team-name" id="score-t2"></div>
+        <div class="score-val" id="score-away">0</div>
+        <button class="score-btn score-btn-away" onclick="addPoint('away')">+1</button>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#333;text-align:center;margin:6px 0 14px;">
+      Cible : <span id="score-target"></span> pts
+    </div>
+    <button class="btn btn-red" onclick="endMatch()">⏹ Terminer le match</button>
+  </div>
+</div>
+
+<div class="footer">Match Point ⚡</div>
+
+<script>
+  // Config
+  const API = 'https://ovfuorfcsetrnrtrxsgw.supabase.co/functions/v1/join-session';
+  const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92ZnVvcmZjc2V0cm5ydHJ4c2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NDg1MzEsImV4cCI6MjA5NDUyNDUzMX0.try7FqbxiCbggqVr5bEnUIVpEDed5Y0bftfHwxoeuyM';
+
+  // Lire session_id depuis l'URL
+  const params = new URLSearchParams(window.location.search);
+  const SESSION_ID = params.get('id') || '';
+
+  let myName = null;
+  let currentMatchId = null;
+  let refreshTimer = null;
+
+  // ── Navigation ──────────────────────────────────────────────────
+  function showStep(id) {
+    ['step-entry','step-existing','step-new','step-session','step-scoring'].forEach(s => {
+      document.getElementById(s)?.classList.add('hidden');
+    });
+    document.getElementById(id)?.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function switchTab(name) {
+    ['matches','create','stats'].forEach(t => {
+      document.getElementById('tab-'+t)?.classList.add('hidden');
+      document.getElementById('tab-btn-'+t)?.classList.remove('active');
+    });
+    document.getElementById('tab-'+name)?.classList.remove('hidden');
+    document.getElementById('tab-btn-'+name)?.classList.add('active');
+    if (name === 'stats') loadStats();
+  }
+
+  // ── API ──────────────────────────────────────────────────────────
+  async function callApi(data) {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + ANON,
+        'apikey': ANON,
+      },
+      body: JSON.stringify({ ...data, session_id: SESSION_ID }),
+    });
+    return res;
+  }
+
+  async function supabaseGet(table, query) {
+    const res = await fetch(
+      `https://ovfuorfcsetrnrtrxsgw.supabase.co/rest/v1/${table}?${query}`,
+      { headers: { apikey: ANON, Authorization: 'Bearer ' + ANON } }
+    );
+    return res.json();
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────
+  async function init() {
+    if (!SESSION_ID) {
+      document.getElementById('session-label').textContent = 'Session introuvable';
+      return;
+    }
+
+    // Charger les matchs de la session
+    const matches = await supabaseGet('matches',
+      `session_id=eq.${SESSION_ID}&select=id,title,status,home_score,away_score,sport,target_score,court_number,location&order=created_at.desc`
+    );
+
+    const loc = matches[0]?.location || 'Session';
+    document.getElementById('session-label').textContent = loc;
+
+    // Extraire les joueurs depuis les titres de matchs
+    const names = new Set();
+    matches.forEach(m => {
+      (m.title || '').split(' VS ').forEach(side =>
+        side.split(', ').forEach(n => { if (n.trim()) names.add(n.trim()); })
+      );
+    });
+
+    // Charger les invités verrouillés
+    const guests = await supabaseGet('session_guests', `session_id=eq.${SESSION_ID}&select=player_name`);
+    const locked = guests.map(g => g.player_name);
+
+    // Afficher la liste des joueurs
+    const players = [...names].sort();
+    const container = document.getElementById('players-list');
+    if (players.length === 0) {
+      container.innerHTML = '<div style="color:#333;font-size:13px;">Aucun joueur trouvé.</div>';
+    } else {
+      container.innerHTML = players.map(name => {
+        const isLocked = locked.includes(name);
+        return `<div class="player-chip ${isLocked ? 'locked' : ''}"
+          ${isLocked ? '' : `onclick="selectPlayer('${name.replace(/'/g,"\\'")}')"`}>
+          <div class="avatar ${isLocked ? 'locked' : ''}">${name[0].toUpperCase()}</div>
+          ${name}${isLocked ? ' 🔒' : ''}
+        </div>`;
+      }).join('');
+    }
+  }
+
+  // ── Rejoindre ──────────────────────────────────────────────────────
+  async function selectPlayer(name) {
+    const res = await callApi({ action: 'lock_player', player_name: name, is_new_player: false });
+    if (res.status === 409) {
+      alert('Ce nom vient d\'être pris ! Choisis un autre.');
+      await init();
+      return;
+    }
+    myName = name;
+    enterSession();
+  }
+
+  async function joinAsNew() {
+    const name = document.getElementById('new-name').value.trim();
+    if (name.length < 2) return;
+    const res = await callApi({ action: 'lock_player', player_name: name, is_new_player: true });
+    if (res.status === 409) {
+      const err = document.getElementById('new-error');
+      err.textContent = 'Ce prénom est déjà pris dans cette session.';
+      err.classList.remove('hidden');
+      return;
+    }
+    myName = name;
+    enterSession();
+  }
+
+  function enterSession() {
+    document.getElementById('session-label').textContent += ' · 👋 ' + myName;
+    document.getElementById('t1p1').value = myName;
+    showStep('step-session');
+    loadMatches();
+    refreshTimer = setInterval(loadMatches, 4000);
+  }
+
+  // ── Matchs ──────────────────────────────────────────────────────
+  async function loadMatches() {
+    const matches = await supabaseGet('matches',
+      `session_id=eq.${SESSION_ID}&select=id,title,status,home_score,away_score,target_score,court_number&order=created_at.desc`
+    );
+    const container = document.getElementById('matches-list');
+    if (!matches || matches.length === 0) {
+      container.innerHTML = '<div style="color:#333;font-size:13px;text-align:center;padding:24px;">Aucun match pour l\'instant</div>';
+      return;
+    }
+    container.innerHTML = matches.map(m => {
+      const active = m.status === 'active';
+      return `<div class="match-item ${active ? 'active-match' : ''}"
+        ${active ? `onclick='openScoring(${JSON.stringify(m)})'` : ''}>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="match-title">${m.title || 'Match'}</div>
+          <span class="badge ${active ? 'badge-active' : 'badge-done'}">${active ? 'En cours' : 'Terminé'}</span>
+        </div>
+        <div class="match-sub">Cible : ${m.target_score} pts${m.court_number ? ' · Court ' + m.court_number : ''}</div>
+        <div class="match-score">${m.home_score ?? 0} — ${m.away_score ?? 0}</div>
+      </div>`;
+    }).join('');
+
+    // Mettre à jour le score en cours si on est en train de scorer
+    if (currentMatchId) {
+      const cur = matches.find(m => m.id === currentMatchId);
+      if (cur) {
+        document.getElementById('score-home').textContent = cur.home_score ?? 0;
+        document.getElementById('score-away').textContent = cur.away_score ?? 0;
+      }
+    }
+  }
+
+  // ── Scoring ──────────────────────────────────────────────────────
+  function openScoring(match) {
+    currentMatchId = match.id;
+    const parts = (match.title || '').split(' VS ');
+    document.getElementById('scoring-title').textContent = match.title || 'Match';
+    document.getElementById('score-t1').textContent = parts[0] || 'Équipe 1';
+    document.getElementById('score-t2').textContent = parts[1] || 'Équipe 2';
+    document.getElementById('score-home').textContent = match.home_score ?? 0;
+    document.getElementById('score-away').textContent = match.away_score ?? 0;
+    document.getElementById('score-target').textContent = match.target_score ?? 11;
+    showStep('step-scoring');
+  }
+
+  async function addPoint(team) {
+    if (!currentMatchId) return;
+    const el = document.getElementById(team === 'home' ? 'score-home' : 'score-away');
+    el.textContent = parseInt(el.textContent) + 1;
+    await callApi({ action: 'add_point', match_id: currentMatchId, team });
+  }
+
+  async function endMatch() {
+    if (!currentMatchId || !confirm('Terminer ce match ?')) return;
+    await callApi({ action: 'end_match', match_id: currentMatchId });
+    currentMatchId = null;
+    exitScoring();
+  }
+
+  function exitScoring() {
+    currentMatchId = null;
+    showStep('step-session');
+    loadMatches();
+  }
+
+  // ── Créer match ──────────────────────────────────────────────────
+  async function createMatch() {
+    const p1 = document.getElementById('t1p1').value.trim();
+    const p2 = document.getElementById('t1p2').value.trim();
+    const p3 = document.getElementById('t2p1').value.trim();
+    const p4 = document.getElementById('t2p2').value.trim();
+    const court = document.getElementById('court').value.trim();
+    const errEl = document.getElementById('create-error');
+
+    if (!p1 || !p3) {
+      errEl.textContent = 'Au moins un joueur par équipe.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+    errEl.classList.add('hidden');
+
+    const t1 = [p1, p2].filter(Boolean).join(', ');
+    const t2 = [p3, p4].filter(Boolean).join(', ');
+    const players = [
+      { name: p1, team: 'home' },
+      ...(p2 ? [{ name: p2, team: 'home' }] : []),
+      { name: p3, team: 'away' },
+      ...(p4 ? [{ name: p4, team: 'away' }] : []),
+    ];
+
+    await callApi({
+      action: 'create_match',
+      title: t1 + ' VS ' + t2,
+      sport: 'pickleball',
+      created_by: '00000000-0000-0000-0000-000000000000',
+      players,
+      court_number: court || null,
+    });
+
+    ['t1p2','t2p1','t2p2','court'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('t1p1').value = myName || '';
+    switchTab('matches');
+  }
+
+  // ── Stats ──────────────────────────────────────────────────────
+  async function loadStats() {
+    const matches = await supabaseGet('matches',
+      `session_id=eq.${SESSION_ID}&status=eq.completed&select=title,home_score,away_score`
+    );
+    const stats = {};
+    (matches || []).forEach(m => {
+      const parts = (m.title || '').split(' VS ');
+      const t1 = (parts[0] || '').split(', ').map(n => n.trim()).filter(Boolean);
+      const t2 = (parts[1] || '').split(', ').map(n => n.trim()).filter(Boolean);
+      const homeWon = (m.home_score ?? 0) > (m.away_score ?? 0);
+      [...t1, ...t2].forEach(n => { if (!stats[n]) stats[n] = { w: 0, l: 0 }; });
+      t1.forEach(n => { if (stats[n]) homeWon ? stats[n].w++ : stats[n].l++; });
+      t2.forEach(n => { if (stats[n]) homeWon ? stats[n].l++ : stats[n].w++; });
+    });
+    const sorted = Object.entries(stats).sort((a, b) => {
+      const ra = a[1].w / Math.max(1, a[1].w + a[1].l);
+      const rb = b[1].w / Math.max(1, b[1].w + b[1].l);
+      return rb - ra;
+    });
+    const el = document.getElementById('stats-list');
+    if (!sorted.length) {
+      el.innerHTML = '<div style="color:#333;font-size:13px;text-align:center;padding:20px;">Aucun match terminé</div>';
+      return;
+    }
+    el.innerHTML = sorted.map(([name, s], i) => {
+      const total = s.w + s.l;
+      const wr = total ? Math.round(s.w / total * 100) : 0;
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}.`;
+      return `<div class="stat-row">
+        <div class="stat-name">${medal} ${name} <span style="color:#333;font-size:11px;">${s.w}V ${s.l}D</span></div>
+        <div class="stat-val">${wr}%</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Démarrage
+  init();
+</script>
+</body>
+</html>
