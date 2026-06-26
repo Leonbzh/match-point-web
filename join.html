@@ -359,8 +359,8 @@
 
     // Équipe 1
     ['t1p1','t1p2'].forEach(slot => {
-      const selectedDiv = document.getElementById(slot + '-selected');
-      const nameEl = document.getElementById(slot + '-name');
+      const selectedDiv = document.getElementById(slot.replace('t1p', 'team1-p').replace('t2p', 'team2-p') + '-selected');
+      const nameEl = document.getElementById(slot.replace('t1p', 'team1-p').replace('t2p', 'team2-p') + '-name');
       if (slots[slot]) {
         selectedDiv.classList.remove('hidden');
         nameEl.textContent = slots[slot];
@@ -371,8 +371,8 @@
 
     // Équipe 2
     ['t2p1','t2p2'].forEach(slot => {
-      const selectedDiv = document.getElementById(slot + '-selected');
-      const nameEl = document.getElementById(slot + '-name');
+      const selectedDiv = document.getElementById(slot.replace('t1p', 'team1-p').replace('t2p', 'team2-p') + '-selected');
+      const nameEl = document.getElementById(slot.replace('t1p', 'team1-p').replace('t2p', 'team2-p') + '-name');
       if (slots[slot]) {
         selectedDiv.classList.remove('hidden');
         nameEl.textContent = slots[slot];
