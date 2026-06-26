@@ -230,6 +230,7 @@
   let currentMatchId = null;
   let refreshTimer = null;
   let sessionSport = 'pickleball';
+  let sessionCreatedBy = '00000000-0000-0000-0000-000000000000';
   let sessionPlayers = []; // Liste complète des joueurs de la session
 
   // Slots de sélection pour créer un match
@@ -280,12 +281,13 @@
       return;
     }
 
-    const sessions = await sbGet('sessions', 'id=eq.' + SESSION_ID + '&select=players,location,sport');
+    const sessions = await sbGet('sessions', 'id=eq.' + SESSION_ID + '&select=players,location,sport,created_by');
     const session = sessions[0];
 
     if (session) {
       sessionPlayers = session.players || [];
       sessionSport = session.sport || 'pickleball';
+      sessionCreatedBy = session.created_by || '00000000-0000-0000-0000-000000000000';
       document.getElementById('session-label').textContent = session.location || 'Session en cours';
     } else {
       document.getElementById('session-label').textContent = 'Session en cours';
@@ -525,7 +527,7 @@
       action: 'create_match',
       title: t1 + ' VS ' + t2,
       sport: sessionSport,
-      created_by: '00000000-0000-0000-0000-000000000000',
+      created_by: sessionCreatedBy,
       players,
       court_number: court || null,
     });
