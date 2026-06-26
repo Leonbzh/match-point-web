@@ -19,96 +19,46 @@
     .header-title { font-size: 18px; font-weight: 800; color: #00E676; }
     .header-sub { font-size: 12px; color: #555; margin-top: 3px; }
     .container { padding: 16px; max-width: 480px; margin: 0 auto; }
-    .card {
-      background: #141414; border-radius: 14px;
-      border: 1px solid #222; padding: 18px; margin-bottom: 14px;
-    }
-    .card-title {
-      font-size: 14px; font-weight: 700; color: #00E676;
-      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
-    }
-    .btn {
-      width: 100%; padding: 15px; border-radius: 12px;
-      font-size: 15px; font-weight: 700; border: none;
-      cursor: pointer; display: flex; align-items: center;
-      justify-content: center; gap: 8px; margin-bottom: 10px;
-    }
+    .card { background: #141414; border-radius: 14px; border: 1px solid #222; padding: 18px; margin-bottom: 14px; }
+    .card-title { font-size: 14px; font-weight: 700; color: #00E676; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .btn { width: 100%; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
     .btn-primary { background: #00E676; color: #000; }
     .btn-outline { background: transparent; color: #00E676; border: 1.5px solid #00E676; }
     .btn-red { background: #c62828; color: #fff; }
     .btn:active { opacity: 0.75; }
-    .player-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 12px; border-radius: 20px;
-      border: 1.5px solid rgba(0,230,118,0.5);
-      background: rgba(0,230,118,0.08);
-      margin: 4px; cursor: pointer; font-size: 13px;
-    }
-    .player-chip.locked {
-      border-color: #2a2a2a; background: #161616;
-      color: #333; cursor: not-allowed;
-    }
-    .avatar {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: rgba(0,230,118,0.2); color: #00E676;
-      font-size: 10px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
+    .player-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 20px; border: 1.5px solid rgba(0,230,118,0.5); background: rgba(0,230,118,0.08); margin: 4px; cursor: pointer; font-size: 13px; }
+    .player-chip.locked { border-color: #2a2a2a; background: #161616; color: #333; cursor: not-allowed; }
+    .player-chip.used { border-color: #1a3a1a; background: rgba(0,230,118,0.03); color: #2a5a2a; cursor: default; }
+    .avatar { width: 22px; height: 22px; border-radius: 50%; background: rgba(0,230,118,0.2); color: #00E676; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .avatar.locked { background: #1a1a1a; color: #333; }
-    input[type=text] {
-      width: 100%; padding: 13px 14px;
-      background: #1a1a1a; border: 1.5px solid #2a2a2a;
-      border-radius: 10px; color: #fff; font-size: 15px;
-      outline: none; margin-bottom: 10px;
-    }
+    input[type=text] { width: 100%; padding: 13px 14px; background: #1a1a1a; border: 1.5px solid #2a2a2a; border-radius: 10px; color: #fff; font-size: 15px; outline: none; margin-bottom: 6px; }
     input[type=text]:focus { border-color: #00E676; }
-    .tab-bar {
-      display: flex; background: #111;
-      border-bottom: 1px solid #1a1a1a;
-      position: sticky; top: 52px; z-index: 9;
-    }
-    .tab {
-      flex: 1; padding: 13px 8px; text-align: center;
-      font-size: 12px; font-weight: 600; color: #444;
-      cursor: pointer; border-bottom: 2px solid transparent;
-    }
+    .field-label { font-size: 11px; color: #555; margin-bottom: 4px; }
+    .field-with-clear { position: relative; }
+    .field-with-clear input { padding-right: 36px; }
+    .clear-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-60%); background: none; border: none; color: #444; font-size: 16px; cursor: pointer; padding: 4px; }
+    .tab-bar { display: flex; background: #111; border-bottom: 1px solid #1a1a1a; position: sticky; top: 52px; z-index: 9; }
+    .tab { flex: 1; padding: 13px 8px; text-align: center; font-size: 12px; font-weight: 600; color: #444; cursor: pointer; border-bottom: 2px solid transparent; }
     .tab.active { color: #00E676; border-bottom-color: #00E676; }
     .hidden { display: none !important; }
-    .match-item {
-      background: #1a1a1a; border-radius: 12px;
-      border: 1px solid #2a2a2a; padding: 14px;
-      margin-bottom: 10px; cursor: pointer;
-    }
+    .match-item { background: #1a1a1a; border-radius: 12px; border: 1px solid #2a2a2a; padding: 14px; margin-bottom: 10px; cursor: pointer; }
     .match-item.active-match { border-color: rgba(0,230,118,0.3); }
     .match-title { font-size: 14px; font-weight: 700; }
     .match-sub { font-size: 11px; color: #555; margin-top: 3px; }
     .match-score { font-size: 20px; font-weight: 900; color: #00E676; margin-top: 6px; }
-    .badge {
-      display: inline-block; padding: 2px 8px;
-      border-radius: 6px; font-size: 10px; font-weight: 700;
-    }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
     .badge-active { background: rgba(0,230,118,0.15); color: #00E676; }
     .badge-done { background: rgba(255,255,255,0.05); color: #555; }
     .score-area { padding: 20px 16px; max-width: 480px; margin: 0 auto; }
-    .score-row {
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 10px; margin: 16px 0;
-    }
+    .score-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 16px 0; }
     .team-block { flex: 1; text-align: center; }
     .team-name { font-size: 11px; color: #666; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .score-val { font-size: 52px; font-weight: 900; color: #00E676; line-height: 1; }
-    .score-btn {
-      width: 100%; padding: 16px; border-radius: 10px;
-      font-size: 22px; font-weight: 900; border: none; cursor: pointer; margin-top: 8px;
-    }
+    .score-btn { width: 100%; padding: 16px; border-radius: 10px; font-size: 22px; font-weight: 900; border: none; cursor: pointer; margin-top: 8px; }
     .score-btn-home { background: rgba(0,230,118,0.12); color: #00E676; border: 1.5px solid rgba(0,230,118,0.3); }
     .score-btn-away { background: rgba(255,255,255,0.04); color: #fff; border: 1.5px solid #2a2a2a; }
     .vs { font-size: 16px; color: #333; font-weight: 700; flex-shrink: 0; }
-    .stat-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 0; border-bottom: 1px solid #1a1a1a;
-    }
+    .stat-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a1a1a; }
     .stat-row:last-child { border-bottom: none; }
     .stat-name { font-size: 13px; color: #bbb; display: flex; align-items: center; gap: 8px; }
     .stat-val { font-size: 14px; font-weight: 700; color: #00E676; }
@@ -116,20 +66,25 @@
     .alert-error { background: rgba(198,40,40,0.1); color: #ef5350; border: 1px solid rgba(198,40,40,0.2); }
     .loading { text-align: center; padding: 30px; color: #333; font-size: 13px; }
     .footer { text-align: center; padding: 16px; color: #222; font-size: 11px; }
-    .back-btn {
-      background: none; border: none; color: #00E676;
-      font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 8px;
-      display: flex; align-items: center; gap: 4px;
-    }
+    .back-btn { background: none; border: none; color: #00E676; font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+    .team-section { background: #1a1a1a; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .team-section-title { font-size: 12px; color: #00E676; font-weight: 700; margin-bottom: 8px; }
+    .chips-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; min-height: 20px; }
+    .mini-chip { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 16px; background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3); color: #00E676; font-size: 12px; cursor: pointer; }
+    .mini-chip.selected { background: rgba(0,230,118,0.25); border-color: #00E676; font-weight: 700; }
+    .mini-chip.disabled { background: #111; border-color: #1a1a1a; color: #2a2a2a; cursor: not-allowed; }
+    .selected-player { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 10px; background: rgba(0,230,118,0.15); border: 1.5px solid #00E676; color: #00E676; font-size: 13px; font-weight: 700; margin-bottom: 6px; width: 100%; }
+    .divider { border: none; border-top: 1px solid #1a1a1a; margin: 10px 0; }
   </style>
 </head>
 <body>
- 
+
 <div class="header">
   <div class="header-title">🏓 Match Point</div>
   <div class="header-sub" id="session-label">Chargement...</div>
 </div>
- 
+
+<!-- ÉTAPE 1 : Choix entrée -->
 <div id="step-entry" class="container">
   <div style="text-align:center; padding: 24px 0 16px;">
     <div style="font-size:36px; margin-bottom:10px;">👋</div>
@@ -139,7 +94,8 @@
   <button class="btn btn-primary" onclick="showStep('step-existing')">👥 Je suis dans la liste des joueurs</button>
   <button class="btn btn-outline" onclick="showStep('step-new')">➕ Je suis un nouveau joueur</button>
 </div>
- 
+
+<!-- ÉTAPE 2A : Joueur existant -->
 <div id="step-existing" class="container hidden">
   <div class="card">
     <div class="card-title">👥 Qui es-tu ?</div>
@@ -148,7 +104,8 @@
   </div>
   <button class="btn btn-outline" onclick="showStep('step-entry')">← Retour</button>
 </div>
- 
+
+<!-- ÉTAPE 2B : Nouveau joueur -->
 <div id="step-new" class="container hidden">
   <div class="card">
     <div class="card-title">➕ Ton prénom</div>
@@ -158,35 +115,72 @@
   </div>
   <button class="btn btn-outline" onclick="showStep('step-entry')">← Retour</button>
 </div>
- 
+
+<!-- ÉTAPE 3 : Session -->
 <div id="step-session" class="hidden">
   <div class="tab-bar">
     <div class="tab active" id="tab-btn-matches" onclick="switchTab('matches')">🏓 Matchs</div>
     <div class="tab" id="tab-btn-create" onclick="switchTab('create')">➕ Créer</div>
     <div class="tab" id="tab-btn-stats" onclick="switchTab('stats')">📊 Stats</div>
   </div>
- 
+
+  <!-- Matchs -->
   <div id="tab-matches" class="container" style="padding-top:14px;">
     <div style="font-size:12px; color:#444; margin-bottom:10px;">Appuie sur un match actif pour scorer</div>
     <div id="matches-list"><div class="loading">Chargement...</div></div>
   </div>
- 
+
+  <!-- Créer un match -->
   <div id="tab-create" class="container hidden" style="padding-top:14px;">
     <div class="card">
       <div class="card-title">🆕 Nouveau match</div>
-      <div style="font-size:12px;color:#555;margin-bottom:8px;">Équipe 1</div>
-      <input type="text" id="t1p1" placeholder="Joueur 1">
-      <input type="text" id="t1p2" placeholder="Joueur 2 (optionnel)">
-      <div style="font-size:12px;color:#555;margin-bottom:8px;margin-top:4px;">Équipe 2</div>
-      <input type="text" id="t2p1" placeholder="Joueur 3">
-      <input type="text" id="t2p2" placeholder="Joueur 4 (optionnel)">
-      <div style="font-size:12px;color:#555;margin-bottom:8px;margin-top:4px;">Court (optionnel)</div>
+
+      <!-- Équipe 1 -->
+      <div class="team-section">
+        <div class="team-section-title">Équipe 1</div>
+        <div id="team1-chips" class="chips-row"></div>
+        <div id="team1-p1-selected" class="hidden">
+          <div class="selected-player">
+            <span id="team1-p1-name"></span>
+            <span style="margin-left:auto;cursor:pointer;color:#555;" onclick="clearSlot('t1p1')">✕</span>
+          </div>
+        </div>
+        <div id="team1-p2-selected" class="hidden">
+          <div class="selected-player" style="background:rgba(0,230,118,0.08);border-color:rgba(0,230,118,0.4);">
+            <span id="team1-p2-name"></span>
+            <span style="margin-left:auto;cursor:pointer;color:#555;" onclick="clearSlot('t1p2')">✕</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Équipe 2 -->
+      <div class="team-section">
+        <div class="team-section-title" style="color:#aaa;">Équipe 2</div>
+        <div id="team2-chips" class="chips-row"></div>
+        <div id="team2-p1-selected" class="hidden">
+          <div class="selected-player" style="background:rgba(255,255,255,0.05);border-color:#444;color:#fff;">
+            <span id="team2-p1-name"></span>
+            <span style="margin-left:auto;cursor:pointer;color:#555;" onclick="clearSlot('t2p1')">✕</span>
+          </div>
+        </div>
+        <div id="team2-p2-selected" class="hidden">
+          <div class="selected-player" style="background:rgba(255,255,255,0.03);border-color:#333;color:#aaa;">
+            <span id="team2-p2-name"></span>
+            <span style="margin-left:auto;cursor:pointer;color:#555;" onclick="clearSlot('t2p2')">✕</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Court -->
+      <div style="font-size:12px;color:#555;margin-bottom:6px;">Court (optionnel)</div>
       <input type="text" id="court" placeholder="1, 2, A...">
+
       <div id="create-error" class="alert alert-error hidden"></div>
-      <button class="btn btn-primary" onclick="createMatch()" style="margin-top:4px;">▶ Démarrer le match</button>
+      <button class="btn btn-primary" onclick="createMatch()" style="margin-top:6px;">▶ Démarrer le match</button>
     </div>
   </div>
- 
+
+  <!-- Stats -->
   <div id="tab-stats" class="container hidden" style="padding-top:14px;">
     <div class="card">
       <div class="card-title">📊 Classement</div>
@@ -194,7 +188,8 @@
     </div>
   </div>
 </div>
- 
+
+<!-- SCORING -->
 <div id="step-scoring" class="hidden">
   <div class="header" style="position:relative;">
     <button class="back-btn" onclick="exitScoring()">← Retour aux matchs</button>
@@ -220,22 +215,26 @@
     <button class="btn btn-red" onclick="endMatch()">⏹ Terminer le match</button>
   </div>
 </div>
- 
+
 <div class="footer">Match Point ⚡</div>
- 
+
 <script>
   const SUPABASE_URL = 'https://ovfuorfcsetrnrtrxsgw.supabase.co';
   const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92ZnVvcmZjc2V0cm5ydHJ4c2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NDg1MzEsImV4cCI6MjA5NDUyNDUzMX0.try7FqbxiCbggqVr5bEnUIVpEDed5Y0bftfHwxoeuyM';
   const API = SUPABASE_URL + '/functions/v1/join-session';
- 
+
   const params = new URLSearchParams(window.location.search);
   const SESSION_ID = params.get('id') || '';
- 
+
   let myName = null;
   let currentMatchId = null;
   let refreshTimer = null;
   let sessionSport = 'pickleball';
- 
+  let sessionPlayers = []; // Liste complète des joueurs de la session
+
+  // Slots de sélection pour créer un match
+  const slots = { t1p1: null, t1p2: null, t2p1: null, t2p2: null };
+
   // ── Navigation ──────────────────────────────────────────────────
   function showStep(id) {
     ['step-entry','step-existing','step-new','step-session','step-scoring'].forEach(s => {
@@ -244,7 +243,7 @@
     document.getElementById(id)?.classList.remove('hidden');
     window.scrollTo(0, 0);
   }
- 
+
   function switchTab(name) {
     ['matches','create','stats'].forEach(t => {
       document.getElementById('tab-'+t)?.classList.add('hidden');
@@ -253,9 +252,10 @@
     document.getElementById('tab-'+name)?.classList.remove('hidden');
     document.getElementById('tab-btn-'+name)?.classList.add('active');
     if (name === 'stats') loadStats();
+    if (name === 'create') renderCreateChips();
   }
- 
-  // ── Supabase REST direct ─────────────────────────────────────────
+
+  // ── Supabase REST ────────────────────────────────────────────────
   async function sbGet(table, query) {
     const res = await fetch(
       SUPABASE_URL + '/rest/v1/' + table + '?' + query,
@@ -263,61 +263,51 @@
     );
     return res.json();
   }
- 
-  // ── API Edge Function ────────────────────────────────────────────
+
   async function callApi(data) {
     const res = await fetch(API, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + ANON,
-        'apikey': ANON,
-      },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON },
       body: JSON.stringify({ ...data, session_id: SESSION_ID }),
     });
     return res;
   }
- 
+
   // ── Init ──────────────────────────────────────────────────────────
   async function init() {
     if (!SESSION_ID) {
       document.getElementById('session-label').textContent = 'Session introuvable';
       return;
     }
- 
-    // 1. Lire les joueurs depuis la table sessions
+
     const sessions = await sbGet('sessions', 'id=eq.' + SESSION_ID + '&select=players,location,sport');
     const session = sessions[0];
- 
-    let players = [];
+
     if (session) {
-      players = session.players || [];
+      sessionPlayers = session.players || [];
       sessionSport = session.sport || 'pickleball';
       document.getElementById('session-label').textContent = session.location || 'Session en cours';
     } else {
       document.getElementById('session-label').textContent = 'Session en cours';
     }
- 
-    // 2. Lire les invités verrouillés
+
     const guests = await sbGet('session_guests', 'session_id=eq.' + SESSION_ID + '&select=player_name');
     const locked = guests.map(g => g.player_name);
- 
-    // 3. Afficher la liste des joueurs
+
     const container = document.getElementById('players-list');
-    if (players.length === 0) {
+    if (sessionPlayers.length === 0) {
       container.innerHTML = '<div style="color:#333;font-size:13px;text-align:center;padding:16px;">Aucun joueur dans cette session.<br><span style="color:#222;font-size:11px;">Rejoins comme nouveau joueur.</span></div>';
     } else {
-      container.innerHTML = players.map(name => {
+      container.innerHTML = sessionPlayers.map(name => {
         const isLocked = locked.includes(name);
         return '<div class="player-chip ' + (isLocked ? 'locked' : '') + '" ' +
           (isLocked ? '' : 'onclick="selectPlayer(\'' + name.replace(/'/g, "\\'") + '\')"') + '>' +
           '<div class="avatar ' + (isLocked ? 'locked' : '') + '">' + name[0].toUpperCase() + '</div>' +
-          name + (isLocked ? ' 🔒' : '') +
-          '</div>';
+          name + (isLocked ? ' 🔒' : '') + '</div>';
       }).join('');
     }
   }
- 
+
   // ── Rejoindre ──────────────────────────────────────────────────────
   async function selectPlayer(name) {
     const res = await callApi({ action: 'lock_player', player_name: name, is_new_player: false });
@@ -329,7 +319,7 @@
     myName = name;
     enterSession();
   }
- 
+
   async function joinAsNew() {
     const name = document.getElementById('new-name').value.trim();
     if (name.length < 2) return;
@@ -341,18 +331,102 @@
       return;
     }
     myName = name;
+    // Ajouter le nouveau joueur à la liste locale
+    if (!sessionPlayers.includes(name)) {
+      sessionPlayers.push(name);
+      sessionPlayers.sort();
+    }
     enterSession();
   }
- 
+
   function enterSession() {
     const label = document.getElementById('session-label');
     label.textContent = label.textContent + ' · 👋 ' + myName;
-    document.getElementById('t1p1').value = myName;
+    // Pré-sélectionner le joueur dans l'équipe 1
+    slots.t1p1 = myName;
     showStep('step-session');
     loadMatches();
     refreshTimer = setInterval(loadMatches, 4000);
   }
- 
+
+  // ── Chips pour créer un match ────────────────────────────────────
+  function getUsedNames() {
+    return Object.values(slots).filter(Boolean);
+  }
+
+  function renderCreateChips() {
+    const used = getUsedNames();
+
+    // Équipe 1
+    ['t1p1','t1p2'].forEach(slot => {
+      const selectedDiv = document.getElementById(slot + '-selected');
+      const nameEl = document.getElementById(slot + '-name');
+      if (slots[slot]) {
+        selectedDiv.classList.remove('hidden');
+        nameEl.textContent = slots[slot];
+      } else {
+        selectedDiv.classList.add('hidden');
+      }
+    });
+
+    // Équipe 2
+    ['t2p1','t2p2'].forEach(slot => {
+      const selectedDiv = document.getElementById(slot + '-selected');
+      const nameEl = document.getElementById(slot + '-name');
+      if (slots[slot]) {
+        selectedDiv.classList.remove('hidden');
+        nameEl.textContent = slots[slot];
+      } else {
+        selectedDiv.classList.add('hidden');
+      }
+    });
+
+    // Chips équipe 1 — montrer seulement si slot libre
+    const team1ChipsEl = document.getElementById('team1-chips');
+    const team2ChipsEl = document.getElementById('team2-chips');
+
+    const t1Full = slots.t1p1 && slots.t1p2;
+    const t2Full = slots.t2p1 && slots.t2p2;
+
+    if (t1Full) {
+      team1ChipsEl.innerHTML = '';
+    } else {
+      team1ChipsEl.innerHTML = sessionPlayers.map(name => {
+        const isUsed = used.includes(name);
+        return '<div class="mini-chip ' + (isUsed ? 'disabled' : '') + '" ' +
+          (isUsed ? '' : 'onclick="assignToTeam(\'team1\',\'' + name.replace(/'/g, "\\'") + '\')"') + '>' +
+          name + '</div>';
+      }).join('');
+    }
+
+    if (t2Full) {
+      team2ChipsEl.innerHTML = '';
+    } else {
+      team2ChipsEl.innerHTML = sessionPlayers.map(name => {
+        const isUsed = used.includes(name);
+        return '<div class="mini-chip ' + (isUsed ? 'disabled' : '') + '" ' +
+          (isUsed ? '' : 'onclick="assignToTeam(\'team2\',\'' + name.replace(/'/g, "\\'") + '\')"') + '>' +
+          name + '</div>';
+      }).join('');
+    }
+  }
+
+  function assignToTeam(team, name) {
+    if (team === 'team1') {
+      if (!slots.t1p1) slots.t1p1 = name;
+      else if (!slots.t1p2) slots.t1p2 = name;
+    } else {
+      if (!slots.t2p1) slots.t2p1 = name;
+      else if (!slots.t2p2) slots.t2p2 = name;
+    }
+    renderCreateChips();
+  }
+
+  function clearSlot(slot) {
+    slots[slot] = null;
+    renderCreateChips();
+  }
+
   // ── Matchs ──────────────────────────────────────────────────────
   async function loadMatches() {
     const matches = await sbGet('matches',
@@ -376,7 +450,7 @@
         '<div class="match-score">' + (m.home_score || 0) + ' — ' + (m.away_score || 0) + '</div>' +
         '</div>';
     }).join('');
- 
+
     if (currentMatchId) {
       const cur = matches.find(m => m.id === currentMatchId);
       if (cur) {
@@ -385,14 +459,11 @@
       }
     }
   }
- 
+
   function openScoringFromEl(el) {
-    try {
-      const match = JSON.parse(el.getAttribute('data-match'));
-      openScoring(match);
-    } catch(e) {}
+    try { openScoring(JSON.parse(el.getAttribute('data-match'))); } catch(e) {}
   }
- 
+
   function openScoring(match) {
     currentMatchId = match.id;
     const parts = (match.title || '').split(' VS ');
@@ -404,43 +475,43 @@
     document.getElementById('score-target').textContent = match.target_score || 11;
     showStep('step-scoring');
   }
- 
+
   async function addPoint(team) {
     if (!currentMatchId) return;
     const el = document.getElementById(team === 'home' ? 'score-home' : 'score-away');
     el.textContent = parseInt(el.textContent) + 1;
     await callApi({ action: 'add_point', match_id: currentMatchId, team });
   }
- 
+
   async function endMatch() {
     if (!currentMatchId || !confirm('Terminer ce match ?')) return;
     await callApi({ action: 'end_match', match_id: currentMatchId });
     currentMatchId = null;
     exitScoring();
   }
- 
+
   function exitScoring() {
     currentMatchId = null;
     showStep('step-session');
     loadMatches();
   }
- 
+
   // ── Créer match ──────────────────────────────────────────────────
   async function createMatch() {
-    const p1 = document.getElementById('t1p1').value.trim();
-    const p2 = document.getElementById('t1p2').value.trim();
-    const p3 = document.getElementById('t2p1').value.trim();
-    const p4 = document.getElementById('t2p2').value.trim();
+    const p1 = slots.t1p1;
+    const p2 = slots.t1p2;
+    const p3 = slots.t2p1;
+    const p4 = slots.t2p2;
     const court = document.getElementById('court').value.trim();
     const errEl = document.getElementById('create-error');
- 
+
     if (!p1 || !p3) {
       errEl.textContent = 'Au moins un joueur par équipe.';
       errEl.classList.remove('hidden');
       return;
     }
     errEl.classList.add('hidden');
- 
+
     const t1 = [p1, p2].filter(Boolean).join(', ');
     const t2 = [p3, p4].filter(Boolean).join(', ');
     const players = [
@@ -449,7 +520,7 @@
       { name: p3, team: 'away' },
       ...(p4 ? [{ name: p4, team: 'away' }] : []),
     ];
- 
+
     await callApi({
       action: 'create_match',
       title: t1 + ' VS ' + t2,
@@ -458,12 +529,13 @@
       players,
       court_number: court || null,
     });
- 
-    ['t1p2','t2p1','t2p2','court'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('t1p1').value = myName || '';
+
+    // Reset les slots sauf t1p1 (garder son propre nom)
+    slots.t1p1 = myName; slots.t1p2 = null; slots.t2p1 = null; slots.t2p2 = null;
+    document.getElementById('court').value = '';
     switchTab('matches');
   }
- 
+
   // ── Stats ──────────────────────────────────────────────────────
   async function loadStats() {
     const matches = await sbGet('matches',
@@ -499,7 +571,7 @@
         '</div>';
     }).join('');
   }
- 
+
   init();
 </script>
 </body>
